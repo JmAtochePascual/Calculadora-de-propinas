@@ -183,7 +183,7 @@ const actualizarResumen = () => {
 	limpiarHTML();
 	const contenido = document.querySelector('#resumen .contenido');
 
-	cliente.pedidos.length > 0
+	tieneContenido()
 		? mostrarResumen(contenido)
 		: mostrarMensajeDeVacio(contenido);
 };
@@ -302,12 +302,17 @@ const mostrarResumen = (contenido) => {
 }
 
 
+// Muestra mensaje de vacio
 const mostrarMensajeDeVacio = (contenido) => {
 	const mensaje = document.createElement('p');
 	mensaje.textContent = 'Añade los elementos del pedido';
 	mensaje.classList.add('text-center', 'fw-bold');
 	contenido.appendChild(mensaje);
 };
+
+
+// Verificar si el cliente tiene pedidos
+const tieneContenido = () => cliente.pedidos.length > 0;
 
 
 // Cargar Event Listeners
