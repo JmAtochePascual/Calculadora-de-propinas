@@ -21,6 +21,8 @@ const init = () => {
 	};
 
 	asignarDatosCliente(mesa, hora);
+
+	cerrarModal();
 };
 
 // Mostrar alerta
@@ -48,6 +50,14 @@ const mostrarAlerta = (mensaje) => {
 const asignarDatosCliente = (mesa, hora) => {
 	cliente.mesa = mesa;
 	cliente.hora = hora;
+};
+
+
+// Cierra el modal
+const cerrarModal = () => {
+	const modalFormulario = document.querySelector('#formulario');
+	const modalBootstrap = bootstrap.Modal.getInstance(modalFormulario);
+	modalBootstrap.hide();
 };
 
 // Cargar Event Listeners
