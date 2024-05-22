@@ -23,6 +23,8 @@ const init = () => {
 	asignarDatosCliente(mesa, hora);
 
 	cerrarModal();
+
+	mostrarSecciones();
 };
 
 // Mostrar alerta
@@ -59,6 +61,15 @@ const cerrarModal = () => {
 	const modalBootstrap = bootstrap.Modal.getInstance(modalFormulario);
 	modalBootstrap.hide();
 };
+
+
+// Muestra secciones ocultas
+const mostrarSecciones = () => {
+	const seccionesOcultas = document.querySelectorAll('.d-none');
+
+	seccionesOcultas.forEach(seccion => seccion.classList.remove('d-none'));
+};
+
 
 // Cargar Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
