@@ -179,6 +179,8 @@ const eliminarPlatillo = (id) => {
 
 // Actualiza el resumen del cliente
 const actualizarResumen = () => {
+	limpiarHTML();
+
 	const contenido = document.querySelector('#resumen .contenido');
 
 	const resumen = document.createElement('div');
@@ -207,6 +209,14 @@ const actualizarResumen = () => {
 	contenido.append(mesa, hora);
 };
 
+
+// Limpiar el html previo
+const limpiarHTML = () => {
+	const contenido = document.querySelector('#resumen .contenido');
+	while (contenido.firstChild) {
+		contenido.removeChild(contenido.firstChild);
+	}
+};
 
 // Cargar Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
