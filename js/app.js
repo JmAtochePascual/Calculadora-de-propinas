@@ -25,6 +25,8 @@ const init = () => {
 	cerrarModal();
 
 	mostrarSecciones();
+
+	obtenerPlatillos();
 };
 
 // Mostrar alerta
@@ -66,10 +68,21 @@ const cerrarModal = () => {
 // Muestra secciones ocultas
 const mostrarSecciones = () => {
 	const seccionesOcultas = document.querySelectorAll('.d-none');
-
 	seccionesOcultas.forEach(seccion => seccion.classList.remove('d-none'));
 };
 
+
+// Obtiene los platillos de la API
+const obtenerPlatillos = () => {
+	const URL = `http://localhost:4000/platillos`;
+
+	fetch(URL)
+		.then(respuesta => respuesta.json())
+		.then(data => {
+			console.log(data);
+		})
+		.catch(error => console.log(error));
+}
 
 // Cargar Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
