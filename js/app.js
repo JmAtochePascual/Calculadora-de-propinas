@@ -137,6 +137,8 @@ const mostrarPlatillos = (platillos) => {
 
 // Agregar platillos al cliente
 const gestionarPlatillo = (platillo) => {
+	const { id } = platillo;
+
 	// Verificar si la cantidad es mayor a 0
 	if (platillo.cantidad === 0) {
 		console.log('eliminar del array');
@@ -144,15 +146,20 @@ const gestionarPlatillo = (platillo) => {
 	}
 
 	// Verificar si el platillo ya existe
-
-};
-
-
+	if (tienePlatillo(id)) {
+		console.log('actualizar cantidad');
+	} else {
+		agregarPlatillo(platillo);
+	};
+}
 // Valida si el platillo ya existe en el array
 const tienePlatillo = (id) => cliente.pedidos.some(pedido => pedido.id === id);
 
 
-
+// Agrega un platillo al array de pedidos
+const agregarPlatillo = (platillo) => {
+	cliente.pedidos = [...cliente.pedidos, platillo];
+}
 // Cargar Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
 	botonGuardarCliente.addEventListener('click', init);
