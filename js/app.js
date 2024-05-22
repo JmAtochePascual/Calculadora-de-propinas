@@ -9,6 +9,12 @@ const cliente = {
 	pedidos: []
 };
 
+const categorias = {
+	1: 'Comida',
+	2: 'Bebidas',
+	3: 'Postres'
+};
+
 
 // Guardar un cliente
 const init = () => {
@@ -78,11 +84,52 @@ const obtenerPlatillos = () => {
 
 	fetch(URL)
 		.then(respuesta => respuesta.json())
-		.then(data => {
-			console.log(data);
+		.then(platillos => {
+			mostrarPlatillos(platillos);
 		})
 		.catch(error => console.log(error));
 }
+
+
+// Muestra los platillos en el HTML
+const mostrarPlatillos = (platillos) => {
+	const contenido = document.querySelector('#platillos');
+
+	platillos.forEach(platillo => {
+		const { id, nombre, precio, categoria } = platillo;
+
+		const row = document.createElement('div');
+		row.classList.add('row', 'py-3', 'border-top');
+
+		const nombrePlatilloHTML = document.createElement('div');
+		nombrePlatilloHTML.textContent = nombre;
+		nombrePlatilloHTML.classList.add('col-md-4');
+
+		const precioPlatilloHTML = document.createElement('div');
+		precioPlatilloHTML.textContent = `$${precio}`;
+		precioPlatilloHTML.classList.add('col-md-3', 'fw-bold');
+
+		const categoriaPlatilloHTML = document.createElement('div');
+		categoriaPlatilloHTML.textContent = categorias[categoria];
+		categoriaPlatilloHTML.classList.add('col-md-3');
+
+		const inputPlatilloHTML = document.createElement('input');
+		inputPlatilloHTML.type = 'number';
+		inputPlatilloHTML.value = 0;
+		inputPlatilloHTML.min = 0;
+		inputPlatilloHTML.id = `producto-${id}`;
+		inputPlatilloHTML.classList.add('form-control');
+
+		const divInput = document.createElement('div');
+		divInput.classList.add('col-md-2');
+		divInput.appendChild(inputPlatilloHTML);
+
+
+		row.append(nombrePlatilloHTML, precioPlatilloHTML, categoriaPlatilloHTML, divInput);
+		contenido.appendChild(row);
+	});
+};
+
 
 // Cargar Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
