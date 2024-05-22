@@ -20,7 +20,7 @@ const init = () => {
 		return;
 	};
 
-	console.log('Cliente guardado');
+	asignarDatosCliente(mesa, hora);
 };
 
 // Mostrar alerta
@@ -43,6 +43,12 @@ const mostrarAlerta = (mensaje) => {
 	}
 };
 
+
+// Asiganar datos cliente
+const asignarDatosCliente = (mesa, hora) => {
+	cliente.mesa = mesa;
+	cliente.hora = hora;
+};
 
 // Cargar Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
