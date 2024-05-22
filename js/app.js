@@ -182,6 +182,31 @@ const eliminarPlatillo = (id) => {
 const actualizarResumen = () => {
 	limpiarHTML();
 
+	cliente.pedidos.length > 0
+		? mostrarResumen()
+		: null;
+};
+
+
+// Limpiar el html previo
+const limpiarHTML = () => {
+	const contenido = document.querySelector('#resumen .contenido');
+	while (contenido.firstChild) {
+		contenido.removeChild(contenido.firstChild);
+	}
+};
+
+
+// Resetar input
+const limpiarInput = (id) => {
+	const inputPlatillo = document.querySelector(`#producto-${id}`);
+	inputPlatillo.value = 0;
+	inputPlatillo.textContent = 0;
+};
+
+
+// Muestra el resumen del cliente
+const mostrarResumen = () => {
 	const contenido = document.querySelector('#resumen .contenido');
 
 	const resumen = document.createElement('div');
@@ -274,24 +299,7 @@ const actualizarResumen = () => {
 	resumen.append(mesa, hora, heading, grupo);
 
 	contenido.appendChild(resumen);
-};
-
-
-// Limpiar el html previo
-const limpiarHTML = () => {
-	const contenido = document.querySelector('#resumen .contenido');
-	while (contenido.firstChild) {
-		contenido.removeChild(contenido.firstChild);
-	}
-};
-
-
-// Resetar input
-const limpiarInput = (id) => {
-	const inputPlatillo = document.querySelector(`#producto-${id}`);
-	inputPlatillo.value = 0;
-	inputPlatillo.textContent = 0;
-};
+}
 
 // Cargar Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
