@@ -181,10 +181,11 @@ const eliminarPlatillo = (id) => {
 // Actualiza el resumen del cliente
 const actualizarResumen = () => {
 	limpiarHTML();
+	const contenido = document.querySelector('#resumen .contenido');
 
 	cliente.pedidos.length > 0
-		? mostrarResumen()
-		: null;
+		? mostrarResumen(contenido)
+		: mostrarMensajeDeVacio(contenido);
 };
 
 
@@ -206,8 +207,7 @@ const limpiarInput = (id) => {
 
 
 // Muestra el resumen del cliente
-const mostrarResumen = () => {
-	const contenido = document.querySelector('#resumen .contenido');
+const mostrarResumen = (contenido) => {
 
 	const resumen = document.createElement('div');
 	resumen.classList.add('col-md-6', 'card', 'py-5', 'px-3', 'shadow');
@@ -300,6 +300,15 @@ const mostrarResumen = () => {
 
 	contenido.appendChild(resumen);
 }
+
+
+const mostrarMensajeDeVacio = (contenido) => {
+	const mensaje = document.createElement('p');
+	mensaje.textContent = 'Añade los elementos del pedido';
+	mensaje.classList.add('text-center', 'fw-bold');
+	contenido.appendChild(mensaje);
+};
+
 
 // Cargar Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
