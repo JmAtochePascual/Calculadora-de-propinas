@@ -148,6 +148,10 @@ const gestionarPlatillo = (platillo) => {
 };
 
 
+// Valida si el platillo ya existe en el array
+const tienePlatillo = (id) => cliente.pedidos.some(pedido => pedido.id === id);
+
+
 
 // Cargar Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
