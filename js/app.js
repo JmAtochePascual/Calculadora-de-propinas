@@ -141,17 +141,19 @@ const gestionarPlatillo = (platillo) => {
 
 	// Verificar si la cantidad es mayor a 0
 	if (platillo.cantidad === 0) {
-		console.log('eliminar del array');
+		eliminarPlatillo(id);
 		return;
 	}
 
 	// Verificar si el platillo ya existe
-	if (tienePlatillo(id)) {
-		console.log('actualizar cantidad');
-	} else {
-		agregarPlatillo(platillo);
-	};
-}
+	tienePlatillo(id)
+		? actualizarCantidadPlatillo(platillo)
+		: agregarPlatillo(platillo);
+
+	console.log(cliente.pedidos);
+};
+
+
 // Valida si el platillo ya existe en el array
 const tienePlatillo = (id) => cliente.pedidos.some(pedido => pedido.id === id);
 
@@ -160,6 +162,19 @@ const tienePlatillo = (id) => cliente.pedidos.some(pedido => pedido.id === id);
 const agregarPlatillo = (platillo) => {
 	cliente.pedidos = [...cliente.pedidos, platillo];
 }
+
+// Actualiza la cantidad de un platillo
+const actualizarCantidadPlatillo = (platillo) => {
+	const pedidosActualizados = cliente.pedidos.map(pedido => pedido.id === platillo.id ? platillo : pedido);
+	cliente.pedidos = [...pedidosActualizados];
+}
+
+
+// Elimina un platillo del array de pedidos
+const eliminarPlatillo = (id) => {
+	cliente.pedidos = cliente.pedidos.filter(pedido => pedido.id !== id);
+}
+
 // Cargar Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
 	botonGuardarCliente.addEventListener('click', init);
