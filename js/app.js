@@ -142,6 +142,7 @@ const gestionarPlatillo = (platillo) => {
 	// Verificar si la cantidad es mayor a 0
 	if (platillo.cantidad === 0) {
 		eliminarPlatillo(id);
+		actualizarResumen();
 		return;
 	}
 
@@ -184,7 +185,7 @@ const actualizarResumen = () => {
 	const contenido = document.querySelector('#resumen .contenido');
 
 	const resumen = document.createElement('div');
-	resumen.classList.add('col-md-6');
+	resumen.classList.add('col-md-6', 'card', 'py-5', 'px-3', 'shadow');
 
 	const mesa = document.createElement('p');
 	mesa.textContent = `Mesa: `;
@@ -202,11 +203,77 @@ const actualizarResumen = () => {
 	horaSpan.textContent = cliente.hora;
 	horaSpan.classList.add('fw-normal');
 
+	const heading = document.createElement('h3');
+	heading.textContent = 'Platillos consumidos';
+	heading.classList.add('my-4', 'text-center');
+
+	// Agrupar
+	const grupo = document.createElement('ul');
+	grupo.classList.add('list-group');
+
+	cliente.pedidos.forEach(pedido => {
+		const { nombre, cantidad, precio, id } = pedido;
+
+		const lista = document.createElement('li');
+		lista.classList.add('list-group-item');
+
+		// Nombre del platillo
+		const texto = document.createElement('h4');
+		texto.textContent = `${nombre}`;
+		texto.classList.add('fw-bold');
+
+		// Catidad del platillo
+		const cantidadPlatillo = document.createElement('p');
+		cantidadPlatillo.textContent = `Cantidad: `;
+		cantidadPlatillo.classList.add('fw-bold');
+
+		const cantidadSpan = document.createElement('span');
+		cantidadSpan.textContent = cantidad;
+		cantidadSpan.classList.add('fw-normal');
+
+		// Precio del platillo
+		const precioPlatillo = document.createElement('p');
+		precioPlatillo.textContent = `Precio: `;
+		precioPlatillo.classList.add('fw-bold');
+
+		const precioSpan = document.createElement('span');
+		precioSpan.textContent = `$${precio}`;
+		precioSpan.classList.add('fw-normal');
+
+		// Subtotal
+		const subtotal = document.createElement('p');
+		subtotal.textContent = `Subtotal: `;
+		subtotal.classList.add('fw-bold');
+
+		const subtotalSpan = document.createElement('span');
+		subtotalSpan.textContent = `$${precio * cantidad}`;
+		subtotalSpan.classList.add('fw-normal');
+
+		const botonEliminar = document.createElement('button');
+		botonEliminar.classList.add('btn', 'btn-danger');
+		botonEliminar.textContent = 'Eliminar';
+		botonEliminar.onclick = () => {
+			eliminarPlatillo(id);
+			limpiarInput(id);
+			actualizarResumen();
+		};
+
+		// Asignar elementos span
+		cantidadPlatillo.append(cantidadSpan);
+		precioPlatillo.append(precioSpan);
+		subtotal.append(subtotalSpan);
+
+		lista.append(texto, cantidadPlatillo, precioPlatillo, subtotal, botonEliminar);
+
+		grupo.append(lista);
+	});
 
 	mesa.appendChild(mesaSpan);
 	hora.appendChild(horaSpan);
 
-	contenido.append(mesa, hora);
+	resumen.append(mesa, hora, heading, grupo);
+
+	contenido.appendChild(resumen);
 };
 
 
@@ -216,6 +283,14 @@ const limpiarHTML = () => {
 	while (contenido.firstChild) {
 		contenido.removeChild(contenido.firstChild);
 	}
+};
+
+
+// Resetar input
+const limpiarInput = (id) => {
+	const inputPlatillo = document.querySelector(`#producto-${id}`);
+	inputPlatillo.value = 0;
+	inputPlatillo.textContent = 0;
 };
 
 // Cargar Event Listeners
