@@ -150,7 +150,7 @@ const gestionarPlatillo = (platillo) => {
 		? actualizarCantidadPlatillo(platillo)
 		: agregarPlatillo(platillo);
 
-	console.log(cliente.pedidos);
+	actualizarResumen();
 };
 
 
@@ -163,6 +163,7 @@ const agregarPlatillo = (platillo) => {
 	cliente.pedidos = [...cliente.pedidos, platillo];
 }
 
+
 // Actualiza la cantidad de un platillo
 const actualizarCantidadPlatillo = (platillo) => {
 	const pedidosActualizados = cliente.pedidos.map(pedido => pedido.id === platillo.id ? platillo : pedido);
@@ -174,6 +175,38 @@ const actualizarCantidadPlatillo = (platillo) => {
 const eliminarPlatillo = (id) => {
 	cliente.pedidos = cliente.pedidos.filter(pedido => pedido.id !== id);
 }
+
+
+// Actualiza el resumen del cliente
+const actualizarResumen = () => {
+	const contenido = document.querySelector('#resumen .contenido');
+
+	const resumen = document.createElement('div');
+	resumen.classList.add('col-md-6');
+
+	const mesa = document.createElement('p');
+	mesa.textContent = `Mesa: `;
+	mesa.classList.add('fw-bold');
+
+	const mesaSpan = document.createElement('span');
+	mesaSpan.textContent = cliente.mesa;
+	mesaSpan.classList.add('fw-normal');
+
+	const hora = document.createElement('p');
+	hora.textContent = `Hora: `;
+	hora.classList.add('fw-bold');
+
+	const horaSpan = document.createElement('span');
+	horaSpan.textContent = cliente.hora;
+	horaSpan.classList.add('fw-normal');
+
+
+	mesa.appendChild(mesaSpan);
+	hora.appendChild(horaSpan);
+
+	contenido.append(mesa, hora);
+};
+
 
 // Cargar Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
