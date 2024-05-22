@@ -119,6 +119,10 @@ const mostrarPlatillos = (platillos) => {
 		inputPlatilloHTML.min = 0;
 		inputPlatilloHTML.id = `producto-${id}`;
 		inputPlatilloHTML.classList.add('form-control');
+		inputPlatilloHTML.onchange = () => {
+			platillo.cantidad = parseInt(inputPlatilloHTML.value);
+			gestionarPlatillo(platillo);
+		};
 
 		const divInput = document.createElement('div');
 		divInput.classList.add('col-md-2');
@@ -129,6 +133,20 @@ const mostrarPlatillos = (platillos) => {
 		contenido.appendChild(row);
 	});
 };
+
+
+// Agregar platillos al cliente
+const gestionarPlatillo = (platillo) => {
+	// Verificar si la cantidad es mayor a 0
+	if (platillo.cantidad === 0) {
+		console.log('eliminar del array');
+		return;
+	}
+
+	// Verificar si el platillo ya existe
+
+};
+
 
 
 // Cargar Event Listeners
