@@ -202,7 +202,6 @@ const limpiarHTML = () => {
 const limpiarInput = (id) => {
 	const inputPlatillo = document.querySelector(`#producto-${id}`);
 	inputPlatillo.value = 0;
-	inputPlatillo.textContent = 0;
 };
 
 
@@ -291,14 +290,17 @@ const mostrarResumen = (contenido) => {
 		lista.append(texto, cantidadPlatillo, precioPlatillo, subtotal, botonEliminar);
 
 		grupo.append(lista);
+
 	});
 
 	mesa.appendChild(mesaSpan);
 	hora.appendChild(horaSpan);
 
-	resumen.append(mesa, hora, heading, grupo);
+	resumen.append(heading, mesa, hora, grupo);
 
 	contenido.appendChild(resumen);
+	mostrarFormularioPropinas(contenido);
+
 }
 
 
@@ -313,6 +315,75 @@ const mostrarMensajeDeVacio = (contenido) => {
 
 // Verificar si el cliente tiene pedidos
 const tieneContenido = () => cliente.pedidos.length > 0;
+
+
+// Muestra el formulario de propinas en el HTML
+const mostrarFormularioPropinas = (contenido) => {
+
+	const formulario = document.createElement('div');
+	formulario.classList.add('col-md-6', 'formulario');
+
+	const divFormulario = document.createElement('div');
+	divFormulario.classList.add('card', 'py-5', 'px-3', 'shadow');
+
+	const heading = document.createElement('h3');
+	heading.textContent = 'Propina';
+	heading.classList.add('my-4', 'text-center');
+
+	// Radio buttons 10%
+	const radio10 = document.createElement('input');
+	radio10.name = 'propina';
+	radio10.type = 'radio';
+	radio10.value = '10';
+	radio10.classList.add('form-check-input');
+	radio10.onchange = () => calcularPropina;
+
+	const label10 = document.createElement('label');
+	label10.textContent = '10%';
+	label10.classList.add('form-check-label');
+
+	const radio10Div = document.createElement('div');
+	radio10Div.classList.add('form-check');
+
+	radio10Div.append(radio10, label10);
+
+	// Radio buttons 25%
+	const radio25 = document.createElement('input');
+	radio25.name = 'propina';
+	radio25.type = 'radio';
+	radio25.value = '25';
+	radio25.classList.add('form-check-input');
+
+	const label25 = document.createElement('label');
+	label25.textContent = '25%';
+	label25.classList.add('form-check-label');
+
+	const radio25Div = document.createElement('div');
+	radio25Div.classList.add('form-check');
+	radio25.onchange = () => calcularPropina;
+	radio25Div.append(radio25, label25);
+
+	// Radio buttons 50%
+	const radio50 = document.createElement('input');
+	radio50.name = 'propina';
+	radio50.type = 'radio';
+	radio50.value = '50';
+	radio50.classList.add('form-check-input');
+	radio50.onchange = () => calcularPropina;
+
+	const label50 = document.createElement('label');
+	label50.textContent = '50%';
+	label50.classList.add('form-check-label');
+
+	const radio50Div = document.createElement('div');
+	radio50Div.classList.add('form-check');
+
+	radio50Div.append(radio50, label50);
+
+	divFormulario.append(heading, radio10Div, radio25Div, radio50Div);
+	formulario.append(divFormulario);
+	contenido.appendChild(formulario);
+};
 
 
 // Cargar Event Listeners
