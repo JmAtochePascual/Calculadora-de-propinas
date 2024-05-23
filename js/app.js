@@ -336,7 +336,7 @@ const mostrarFormularioPropinas = (contenido) => {
 	radio10.type = 'radio';
 	radio10.value = '10';
 	radio10.classList.add('form-check-input');
-	radio10.onchange = () => calcularPropina;
+	radio10.onclick = calcularPropina;
 
 	const label10 = document.createElement('label');
 	label10.textContent = '10%';
@@ -344,7 +344,6 @@ const mostrarFormularioPropinas = (contenido) => {
 
 	const radio10Div = document.createElement('div');
 	radio10Div.classList.add('form-check');
-
 	radio10Div.append(radio10, label10);
 
 	// Radio buttons 25%
@@ -353,6 +352,7 @@ const mostrarFormularioPropinas = (contenido) => {
 	radio25.type = 'radio';
 	radio25.value = '25';
 	radio25.classList.add('form-check-input');
+	radio25.onclick = calcularPropina;
 
 	const label25 = document.createElement('label');
 	label25.textContent = '25%';
@@ -360,7 +360,6 @@ const mostrarFormularioPropinas = (contenido) => {
 
 	const radio25Div = document.createElement('div');
 	radio25Div.classList.add('form-check');
-	radio25.onchange = () => calcularPropina;
 	radio25Div.append(radio25, label25);
 
 	// Radio buttons 50%
@@ -369,7 +368,7 @@ const mostrarFormularioPropinas = (contenido) => {
 	radio50.type = 'radio';
 	radio50.value = '50';
 	radio50.classList.add('form-check-input');
-	radio50.onchange = () => calcularPropina;
+	radio50.onclick = calcularPropina;
 
 	const label50 = document.createElement('label');
 	label50.textContent = '50%';
@@ -377,7 +376,6 @@ const mostrarFormularioPropinas = (contenido) => {
 
 	const radio50Div = document.createElement('div');
 	radio50Div.classList.add('form-check');
-
 	radio50Div.append(radio50, label50);
 
 	divFormulario.append(heading, radio10Div, radio25Div, radio50Div);
@@ -385,6 +383,14 @@ const mostrarFormularioPropinas = (contenido) => {
 	contenido.appendChild(formulario);
 };
 
+
+// Calcula la propina
+const calcularPropina = () => {
+	const propinaSeleccionada = Number(document.querySelector('input[name="propina"]:checked').value);
+	const subtotal = cliente.pedidos.reduce((total, pedido) => total + pedido.precio * pedido.cantidad, 0);
+	const total = subtotal + (subtotal * propinaSeleccionada / 100);
+	console.log(total);
+};
 
 // Cargar Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
