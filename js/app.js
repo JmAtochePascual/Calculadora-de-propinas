@@ -389,8 +389,55 @@ const calcularPropina = () => {
 	const propinaSeleccionada = Number(document.querySelector('input[name="propina"]:checked').value);
 	const subtotal = cliente.pedidos.reduce((total, pedido) => total + pedido.precio * pedido.cantidad, 0);
 	const total = subtotal + (subtotal * propinaSeleccionada / 100);
-	console.log(total);
+	mostrarTotal(propinaSeleccionada, subtotal, total);
 };
+
+
+// Muestra el total a pagar
+const mostrarTotal = (propina, subtotal, total) => {
+	// Eliminar el total anterior
+	const totalAnterior = document.querySelector('.resultado-pago');
+	if (totalAnterior) {
+		totalAnterior.remove();
+	}
+
+	const subtotalHTML = document.createElement('p');
+	subtotalHTML.textContent = `Subtotal: $`;
+	subtotalHTML.classList.add('fs-3', 'mt-2', 'fw-bold');
+
+	const subtotalSpan = document.createElement('span');
+	subtotalSpan.textContent = subtotal;
+	subtotalSpan.classList.add('fw-normal');
+
+	const propinaHTML = document.createElement('p');
+	propinaHTML.textContent = `Propina: `;
+	propinaHTML.classList.add('fs-3', 'mt-2', 'fw-bold');
+
+	const propinaSpan = document.createElement('span');
+	propinaSpan.textContent = `$${(subtotal * propina / 100)}`;
+	propinaSpan.classList.add('fw-normal');
+
+	const totalHTML = document.createElement('p');
+	totalHTML.textContent = `Total: $`;
+	totalHTML.classList.add('fs-3', 'mt-2', 'fw-bold');
+
+	const totalSpan = document.createElement('span');
+	totalSpan.textContent = total;
+	totalSpan.classList.add('fw-normal');
+
+	const divTotal = document.createElement('div');
+	divTotal.classList.add('resultado-pago');
+
+	subtotalHTML.append(subtotalSpan);
+	propinaHTML.append(propinaSpan);
+	totalHTML.append(totalSpan);
+
+	divTotal.append(subtotalHTML, propinaHTML, totalHTML);
+
+	const formulario = document.querySelector('.formulario > div');
+	formulario.appendChild(divTotal);
+}
+
 
 // Cargar Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
